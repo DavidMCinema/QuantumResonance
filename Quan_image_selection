@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Select Your Image</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Select an Image</h2>
+    <form id="selection-form" method="GET">
+      <label><input type="radio" name="selection" value="1" required> Image 1</label><br>
+      <label><input type="radio" name="selection" value="2"> Image 2</label><br>
+      <label><input type="radio" name="selection" value="3"> Image 3</label><br>
+      <label><input type="radio" name="selection" value="4"> Image 4</label><br><br>
+      <input type="submit" value="Submit Selection">
+    </form>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const resumeUrl = params.get('resumeUrl');
+      if (!resumeUrl) {
+        document.body.innerHTML = "<p style='color:red;'>Missing resumeUrl. Cannot submit form.</p>";
+      } else {
+        document.getElementById('selection-form').action = resumeUrl;
+      }
+    </script>
+  </body>
+</html>
