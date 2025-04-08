@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Form</title>
+  <style>
+    body { font-family: Arial; max-width: 500px; margin: 50px auto; }
+    input, label, button { display: block; width: 100%; margin: 10px 0; padding: 10px; }
+    input[type="checkbox"] { width: auto; display: inline-block; }
+    .checkbox-label { display: inline-block; width: 90%; vertical-align: top; }
+    .checkbox-wrapper { margin: 10px 0; }
+    button { background-color: #28a745; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #218838; }
+    .footer-links { font-size: 12px; text-align: center; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <form id="myForm">
+    <label>First Name *</label>
+    <input type="text" name="first_name" required>
+
+    <label>Last Name</label>
+    <input type="text" name="last_name">
+
+    <label>Phone *</label>
+    <input type="tel" name="phone" required>
+
+    <label>Email *</label>
+    <input type="email" name="email" required>
+
+    <label>Your Website *</label>
+    <input type="url" name="website" required>
+
+    <div class="checkbox-wrapper">
+      <input type="checkbox" id="consent1" name="consent_transactional">
+      <label class="checkbox-label" for="consent1">
+        I consent to receive transactional messages...
+      </label>
+    </div>
+
+    <div class="checkbox-wrapper">
+      <input type="checkbox" id="consent2" name="consent_marketing">
+      <label class="checkbox-label" for="consent2">
+        I consent to receive marketing and promotional messages...
+      </label>
+    </div>
+
+    <button type="submit">Button</button>
+  </form>
+
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+  </div>
+
+  <script>
+    document.getElementById("myForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const data = {};
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+
+      fetch("https://hooks.zapier.com/hooks/catch/21839270/20h3ccc/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Form submitted successfully!");
+          document.getElementById("myForm").reset();
+        } else {
+          alert("Error submitting form.");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
