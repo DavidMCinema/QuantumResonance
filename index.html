@@ -120,11 +120,14 @@
     document.getElementById("myForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const formData = new FormData(this);
-      const data = {};
-      formData.forEach((value, key) => {
-        data[key] = value;
-      });
+     const data = {
+  first_name: document.querySelector('[name="first_name"]').value,
+  last_name: document.querySelector('[name="last_name"]').value,
+  phone: document.querySelector('[name="phone"]').value,
+  email: document.querySelector('[name="email"]').value,
+  website: document.querySelector('[name="website"]').value
+};
+
 
       fetch("https://hooks.zapier.com/hooks/catch/21839270/20h3ccc/", {
         method: "POST",
