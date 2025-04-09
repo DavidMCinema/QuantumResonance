@@ -132,7 +132,14 @@
 
       console.log("Submitting this data:", data);
 
-      fetch("https://hooks.zapier.com/hooks/catch/21839270/20h3ccc/", {
+      fetch("/.netlify/functions/sendtozapier", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data)
+})
+
         method: "POST",
         headers: {
           "Content-Type": "application/json"
