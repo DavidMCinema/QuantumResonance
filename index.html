@@ -130,13 +130,12 @@
         consent_marketing: document.querySelector('[name="consent_marketing"]').checked
       };
 
-      fetch("/.netlify/functions/sendtozapier", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      })
+     fetch("https://wagsagents.pro/.netlify/functions/zapforwarder", {
+  method: "POST",
+  body: JSON.stringify(data),
+  headers: { "Content-Type": "application/json" }
+})
+
       .then(response => {
         if (response.ok) {
           document.getElementById("thankYouMessage").style.display = "block";
