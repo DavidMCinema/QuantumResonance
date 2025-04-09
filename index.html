@@ -120,41 +120,41 @@
     document.getElementById("myForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-    const data = {
-  first_name: document.querySelector('[name="first_name"]').value,
-  last_name: document.querySelector('[name="last_name"]').value,
-  phone: document.querySelector('[name="phone"]').value,
-  email: document.querySelector('[name="email"]').value,
-  website: document.querySelector('[name="website"]').value,
-  consent_transactional: document.querySelector('[name="consent_transactional"]').checked,
-  consent_marketing: document.querySelector('[name="consent_marketing"]').checked
-};
+      const data = {
+        first_name: document.querySelector('[name="first_name"]').value,
+        last_name: document.querySelector('[name="last_name"]').value,
+        phone: document.querySelector('[name="phone"]').value,
+        email: document.querySelector('[name="email"]').value,
+        website: document.querySelector('[name="website"]').value,
+        consent_transactional: document.querySelector('[name="consent_transactional"]').checked,
+        consent_marketing: document.querySelector('[name="consent_marketing"]').checked
+      };
 
+      console.log("Submitting this data:", data);
 
-      console.log("Sending this data:", data);
-
-
-     fetch("https://hooks.zapier.com/hooks/catch/21839270/20h3ccc/", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(data)
-})
-.then(response => {
-  if (response.ok) {
-    alert("Thank you for your submission! Please answer the phone call from our Agent in about 10 minutes. The Agent will call you from 484.702.1127.");
-    document.getElementById("myForm").reset();
-  } else {
-    console.error("Non-OK response:", response);
-    alert("Submission failed.");
-  }
-})
-.catch(error => {
-  console.error("Caught fetch error:", error);
-  alert("Submission failed.");
-});
-
+      fetch("https://hooks.zapier.com/hooks/catch/21839270/20h3ccc/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Thank you for your submission! Please answer the phone call from our Agent in about 10 minutes. The Agent will call you from 484.702.1127.");
+          document.getElementById("myForm").reset();
+        } else {
+          console.error("Non-OK response:", response);
+          response.text().then(text => {
+            console.error("Response body:", text);
+          });
+          alert("Submission failed.");
+        }
+      })
+      .catch(error => {
+        console.error("Fetch error:", error);
+        alert("Submission failed.");
+      });
     });
   </script>
 
