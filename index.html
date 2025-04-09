@@ -120,13 +120,16 @@
     document.getElementById("myForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-     const data = {
+    const data = {
   first_name: document.querySelector('[name="first_name"]').value,
   last_name: document.querySelector('[name="last_name"]').value,
   phone: document.querySelector('[name="phone"]').value,
   email: document.querySelector('[name="email"]').value,
-  website: document.querySelector('[name="website"]').value
+  website: document.querySelector('[name="website"]').value,
+  consent_transactional: document.querySelector('[name="consent_transactional"]').checked,
+  consent_marketing: document.querySelector('[name="consent_marketing"]').checked
 };
+
 
       console.log("Sending this data:", data);
 
