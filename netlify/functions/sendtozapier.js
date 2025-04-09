@@ -1,23 +1,38 @@
-export async function handler(event, context) {
-  const data = JSON.parse(event.body);
-
-  const response = await fetch("https://hooks.zapier.com/hooks/catch/21839270/20h3ccc/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  });
-
-  if (response.ok) {
+exports.handler = async (event, context) => {
+  // Handle CORS preflight request
+  if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Sent to Zapier successfully!" }),
-    };
-  } else {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: "Failed to send to Zapier." }),
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: 'OK',
     };
   }
-}
+
+  // Regular POST handling
+  try {
+    const data = JSON.parse(event.body);
+
+    // OPTIONAL: Log or forward to Zapier here
+    // Example: send via fetch or axios to Zapier Webhook URL
+
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ message: 'Submission received!' }),
+    };
+  } catch (err) {
+    return {
+      statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ error: 'Something went wrong!' }),
+    };
+  }
+};
