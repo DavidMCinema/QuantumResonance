@@ -132,13 +132,14 @@
 
       console.log("Submitting this data:", data);
 
-      fetch("https://hooks.zapier.com/hooks/catch/21839270/20h3ccc/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      })
+     fetch("/.netlify/functions/sendtozapier", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data)
+})
+
       .then(response => {
         if (response.ok) {
           alert("Thank you for your submission! Please answer the phone call from our Agent in about 10 minutes. The Agent will call you from 484.702.1127.");
