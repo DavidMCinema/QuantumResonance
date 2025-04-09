@@ -165,42 +165,40 @@
     <a href="/">Return to the Main Website</a>
   </div>
 
-  <script>
-    document.getElementById("myForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+ <script>
+  document.getElementById("myForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      const data = {
-        first_name: document.querySelector('[name="first_name"]').value,
-        last_name: document.querySelector('[name="last_name"]').value,
-        phone: document.querySelector('[name="phone"]').value,
-        email: document.querySelector('[name="email"]').value,
-        website: document.querySelector('[name="website"]').value,
-        consent_transactional: document.querySelector('[name="consent_transactional"]').checked,
-        consent_marketing: document.querySelector('[name="consent_marketing"]').checked
-      };
+    const data = {
+      first_name: document.querySelector('[name="first_name"]').value,
+      last_name: document.querySelector('[name="last_name"]').value,
+      phone: document.querySelector('[name="phone"]').value,
+      email: document.querySelector('[name="email"]').value,
+      website: document.querySelector('[name="website"]').value,
+      consent_transactional: document.querySelector('[name="consent_transactional"]').checked,
+      consent_marketing: document.querySelector('[name="consent_marketing"]').checked
+    };
 
-      fetch("https://wagsagents.pro/.netlify/functions/zapforwarder", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" }
-      })
-      .then(response => {
-        if (response.ok) {
-          // Show thank you message full screen
-          document.getElementById("form-container").style.display = "none";
-          document.getElementById("thank-you-message").style.display = "flex";
-        } else {
-          console.error("Non-OK response:", response);
-          response.text().then(text => console.error("Response body:", text));
-          alert("Submission failed.");
-        }
-      })
-      .catch(error => {
-        console.error("Fetch error:", error);
+    fetch("https://wagsagents.pro/.netlify/functions/zapforwarder", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(response => {
+      if (response.ok) {
+        // Hide the form and show thank-you message
+        document.getElementById("myForm").style.display = "none";
+        document.getElementById("thank-you-message").style.display = "flex";
+      } else {
         alert("Submission failed.");
-      });
+      }
+    })
+    .catch(error => {
+      console.error("Fetch error:", error);
+      alert("Submission failed.");
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
