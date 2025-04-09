@@ -8,10 +8,16 @@
       background-color: #121212;
       color: #f5f5f5;
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #form-container {
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
     }
+
     input, label, button {
       display: block;
       width: 100%;
@@ -20,100 +26,143 @@
       border: none;
       border-radius: 5px;
     }
+
     input[type="checkbox"] {
       width: auto;
       display: inline-block;
       margin-right: 10px;
     }
+
     label.checkbox-label {
       display: inline-block;
       width: 90%;
       vertical-align: top;
       color: #ddd;
     }
+
     .checkbox-wrapper {
       background: #1e1e1e;
       padding: 15px;
       border-radius: 5px;
       margin-bottom: 15px;
     }
+
     input[type="text"], input[type="email"], input[type="tel"], input[type="url"] {
       background: #1e1e1e;
       color: #fff;
       border: 1px solid #333;
     }
+
     button {
       background-color: #28a745;
       color: white;
       cursor: pointer;
     }
+
     button:hover {
       background-color: #218838;
     }
+
     .footer-links {
       font-size: 12px;
       text-align: center;
       margin-top: 20px;
     }
+
     .footer-links a {
       color: #4fc3f7;
       text-decoration: none;
     }
+
     .footer-links a:hover {
       text-decoration: underline;
     }
-    #thankYouMessage {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #1e1e1e;
-      border-left: 5px solid #28a745;
+
+    #thank-you-message {
       display: none;
+      height: 100vh;
+      background-color: #121212;
+      color: #28a745;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    #thank-you-message h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    #thank-you-message p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+
+    #thank-you-message a {
       font-size: 16px;
-      line-height: 1.4em;
+      color: #4fc3f7;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    #thank-you-message a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <form id="myForm">
-    <label for="firstName">First Name *</label>
-    <input type="text" id="firstName" name="first_name" required autocomplete="given-name">
+  <!-- FORM WRAPPER -->
+  <div id="form-container">
+    <form id="myForm">
+      <label for="firstName">First Name *</label>
+      <input type="text" id="firstName" name="first_name" required autocomplete="given-name">
 
-    <label for="lastName">Last Name</label>
-    <input type="text" id="lastName" name="last_name" autocomplete="family-name">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" name="last_name" autocomplete="family-name">
 
-    <label for="phone">Phone *</label>
-    <input type="tel" id="phone" name="phone" required autocomplete="tel">
+      <label for="phone">Phone *</label>
+      <input type="tel" id="phone" name="phone" required autocomplete="tel">
 
-    <label for="email">Email *</label>
-    <input type="email" id="email" name="email" required autocomplete="email">
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" required autocomplete="email">
 
-    <label for="website">Your Website *</label>
-    <input type="text" id="website" name="website" required autocomplete="url" placeholder="yourwebsite.com">
+      <label for="website">Your Website *</label>
+      <input type="text" id="website" name="website" required autocomplete="url" placeholder="yourwebsite.com">
 
-    <div class="checkbox-wrapper">
-      <input type="checkbox" id="consent1" name="consent_transactional">
-      <label class="checkbox-label" for="consent1">
-        By checking this box, I consent to receive transactional messages related to my account, orders, or services I have requested. These messages may include appointment reminders, order confirmations, and account notifications among others. Message frequency may vary. Message & Data rates may apply. Reply HELP for help or STOP to opt-out.
-      </label>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="consent1" name="consent_transactional">
+        <label class="checkbox-label" for="consent1">
+          By checking this box, I consent to receive transactional messages related to my account, orders, or services I have requested. These messages may include appointment reminders, order confirmations, and account notifications among others. Message frequency may vary. Message & Data rates may apply. Reply HELP for help or STOP to opt-out.
+        </label>
+      </div>
+
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="consent2" name="consent_marketing">
+        <label class="checkbox-label" for="consent2">
+          By checking this box, I consent to receive marketing and promotional messages, including special offers, discounts, new product updates among others. Message frequency may vary. Message & Data rates may apply. Reply HELP for help or STOP to opt-out.
+        </label>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
     </div>
-
-    <div class="checkbox-wrapper">
-      <input type="checkbox" id="consent2" name="consent_marketing">
-      <label class="checkbox-label" for="consent2">
-        By checking this box, I consent to receive marketing and promotional messages, including special offers, discounts, new product updates among others. Message frequency may vary. Message & Data rates may apply. Reply HELP for help or STOP to opt-out.
-      </label>
-    </div>
-
-    <button type="submit">Submit</button>
-  </form>
-
-  <div id="thankYouMessage">
-    Thank you for your submission! Please answer the phone call from our Agent in about 10 minutes. The Agent will call you from <strong>484.702.1127</strong>.
   </div>
 
-  <div class="footer-links">
-    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+  <!-- THANK YOU MESSAGE -->
+  <div id="thank-you-message">
+    <h1>Thank you for your submission!</h1>
+    <p>Please answer the phone call from our Agent in about 10 minutes.<br>
+       The Agent will call you from <strong>484.702.1127</strong>.
+    </p>
+    <a href="/">Return to the Main Website</a>
   </div>
 
   <script>
@@ -130,22 +179,19 @@
         consent_marketing: document.querySelector('[name="consent_marketing"]').checked
       };
 
-     fetch("https://wagsagents.pro/.netlify/functions/zapforwarder", {
-  method: "POST",
-  body: JSON.stringify(data),
-  headers: { "Content-Type": "application/json" }
-})
-
+      fetch("https://wagsagents.pro/.netlify/functions/zapforwarder", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+      })
       .then(response => {
         if (response.ok) {
-          document.getElementById("thankYouMessage").style.display = "block";
-          document.getElementById("thankYouMessage").scrollIntoView({ behavior: "smooth" });
-          document.getElementById("myForm").reset();
+          // Show thank you message full screen
+          document.getElementById("form-container").style.display = "none";
+          document.getElementById("thank-you-message").style.display = "flex";
         } else {
           console.error("Non-OK response:", response);
-          response.text().then(text => {
-            console.error("Response body:", text);
-          });
+          response.text().then(text => console.error("Response body:", text));
           alert("Submission failed.");
         }
       })
