@@ -1,38 +1,39 @@
 exports.handler = async (event, context) => {
-  // Handle CORS preflight request
+  // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
       },
-      body: 'OK',
+      body: 'Preflight OK',
     };
   }
 
-  // Regular POST handling
+  // Handle form submission (POST)
   try {
     const data = JSON.parse(event.body);
 
-    // OPTIONAL: Log or forward to Zapier here
-    // Example: send via fetch or axios to Zapier Webhook URL
+    // You can log it or send to Zapier here
+    console.log('Form submitted:', data);
 
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({ message: 'Submission received!' }),
+      body: JSON.stringify({ success: true, message: 'Form received' }),
     };
   } catch (err) {
+    console.error('Error:', err);
     return {
       statusCode: 500,
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({ error: 'Something went wrong!' }),
+      body: JSON.stringify({ error: 'Form processing failed' }),
     };
   }
 };
