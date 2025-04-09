@@ -11,30 +11,42 @@ exports.handler = async (event, context) => {
     };
   }
 
-  try {
-    const data = JSON.parse(event.body);
+ try {
+  const data = JSON.parse(event.body);
+  console.log("Form received:", data);
 
-    const zapierResponse = await fetch("https://hooks.zapier.com/hooks/catch/21839270/20h3ccc/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
+  const zapierResponse = await fetch("https://hooks.zapier.com/hooks/catch/21839270/20h3ccc/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
 
-    if (!zapierResponse.ok) {
-      throw new Error(`Zapier response not ok: ${zapierResponse.status}`);
-    }
+  // ✅ Log Zapier’s raw response body
+  const zapierText = await zapierResponse.text();
+  console.log("Zapier response body:", zapierText);
 
-    return {
-      statusCode: 200,
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify({ success: true })
-    };
-  } catch (err) {
-    console.error("Error forwarding to Zapier:", err);
-    return {
-      statusCode: 500,
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify({ error: 'Failed to forward to Zapier' })
-    };
+  if (!zapierResponse.ok) {
+    throw new Error(`Zapier error: ${zapierResponse.status}`);
   }
+
+  return {
+    statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify({ success: true })
+  };
+} catch (err) {
+  console.error("Netlify Function Error:", err);
+  return {
+    statusCode: 500,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify({ error: 'Failed to forward to Zapier' })
+  };
+}
+
 };
