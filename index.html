@@ -139,6 +139,23 @@
   },
   body: JSON.stringify(data)
 })
+.then(response => {
+  if (response.ok) {
+    document.getElementById("thankYouMessage").style.display = "block";
+    document.getElementById("myForm").reset();
+  } else {
+    console.error("Non-OK response:", response);
+    response.text().then(text => {
+      console.error("Response body:", text);
+    });
+    alert("Submission failed.");
+  }
+})
+.catch(error => {
+  console.error("Fetch error:", error);
+  alert("Submission failed.");
+});
+
 
         method: "POST",
         headers: {
